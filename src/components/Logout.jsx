@@ -1,6 +1,6 @@
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { logout } from '../api/auth';
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { logout } from "shared/api/auth";
 
 const Logout = () => {
     const navigate = useNavigate();
@@ -9,11 +9,11 @@ const Logout = () => {
         const performLogout = async () => {
             try {
                 await logout(); // Вызов API для выхода
-                localStorage.removeItem('token'); // Удаляем токен из localStorage
-                navigate('/login'); // Перенаправляем на страницу входа
+                localStorage.removeItem("token"); // Удаляем токен из localStorage
+                navigate("/login"); // Перенаправляем на страницу входа
             } catch (error) {
-                console.error('Ошибка при выходе:', error);
-                navigate('/login');
+                console.error("Ошибка при выходе:", error);
+                navigate("/login");
             }
         };
 
