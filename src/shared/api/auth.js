@@ -6,7 +6,6 @@ export async function login(email, password) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
     });
-    console.log(res);
     if (!res.ok) throw new Error("Неверный email или пароль");
     const data = await res.json();
     localStorage.setItem("accessToken", data.access);
@@ -14,8 +13,28 @@ export async function login(email, password) {
     return data;
 }
 
-export async function refreshToken() {
-    const refresh = localStorage.getItem("refreshToken");
+export async function register({ username, email, first_name, last_name, password1, password2 }) {
+    const res = await fetch(`${API_URL}/auth/register/`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, email, first_name, last_name, password1, password2 }),
+    });
+
+    if (!res.ok) {
+        const errorData = await res.json(); // объект с полями ошибок
+        throw errorData; // <- кидаем объект
+    }
+
+    const data = await res.json();
+    if (data.access && data.refresh) {
+        localStorage.setItem("accessToken", data.access);
+        localStorage.setItem("refreshToken", data.refresh);
+    }
+
+    return data;
+}
+
+export async function refreshToken(refresh) {
     const res = await fetch(`${API_URL}/auth/token/refresh/`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },

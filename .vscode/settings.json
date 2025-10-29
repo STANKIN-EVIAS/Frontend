@@ -1,0 +1,24 @@
+{
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "gitlens.ai.model": "vscode",
+    "gitlens.ai.vscode.model": "copilot:gpt-4.1",
+    "gitlens.hovers.enabled": false,
+    "gitlens.hovers.currentLine.over": "line",
+    "gitlens.hovers.avatars": false,
+    "workbench.editor.labelFormat": "short",
+    "terminal.integrated.cursorStyle": "line",
+    "terminal.integrated.cursorStyleInactive": "line",
+    "terminal.integrated.cursorBlinking": true,
+    "files.autoSave": "onFocusChange",
+    "editor.codeActionsOnSave": {
+        "source.fixAll": "explicit",
+        "source.organizeImports": "explicit"
+    },
+
+    "window.commandCenter": false,
+    "git.confirmSync": false,
+    "git.autofetch": true,
+    "cSpell.language": "en, ru",
+    "cSpell.words": ["Ветклиники", "ЕВИАС"]
+}

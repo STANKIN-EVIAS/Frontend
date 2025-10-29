@@ -2,6 +2,7 @@ import ClinicsPage from "pages/ClinicsPage/ClinicsPage.jsx";
 import ContactsPage from "pages/ContactsPage/ContactsPage.jsx";
 import HomePage from "pages/HomePage/HomePage.jsx";
 import LoginPage from "pages/LoginPage/LoginPage.jsx";
+import RegistrationPage from "pages/RegistrationPage/RegistrationPage.jsx";
 import ReviewsPage from "pages/ReviewsPage/ReviewsPage.jsx";
 import ServicesPage from "pages/ServicesPage/ServicesPage.jsx";
 import SymptomsPage from "pages/SymptomsPage/SymptomsPage.jsx";
@@ -13,6 +14,7 @@ export default function AppRoutes() {
         <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/registration" element={<RegistrationPage />} />
             <Route path="/profile" element={<UserProfilePage />} />
             <Route path="/services" element={<ServicesPage />} />
             <Route path="/contacts" element={<ContactsPage />} />
