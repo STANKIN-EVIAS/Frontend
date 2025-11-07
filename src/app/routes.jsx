@@ -1,6 +1,6 @@
 import LoginPage from "pages/Auth/LoginPage.jsx";
 import RegistrationPage from "pages/Auth/RegistrationPage.jsx";
-import ClinicDetail from "pages/Clinics/ClinicDetail.jsx";
+import ClinicDetail from "pages/Clinics/ClinicPage.jsx";
 import ClinicsPage from "pages/Clinics/ClinicsPage.jsx";
 import ContactsPage from "pages/Main/ContactsPage.jsx";
 import HomePage from "pages/Main/HomePage.jsx";
