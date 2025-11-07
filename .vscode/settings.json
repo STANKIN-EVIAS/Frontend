@@ -15,10 +15,8 @@
         "source.fixAll": "explicit",
         "source.organizeImports": "explicit"
     },
-
     "window.commandCenter": false,
     "git.confirmSync": false,
     "git.autofetch": true,
-    "cSpell.language": "en, ru",
-    "cSpell.words": ["Ветклиники", "ЕВИАС"]
+    "cSpell.language": "en, ru"
 }

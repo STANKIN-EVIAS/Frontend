@@ -49,7 +49,6 @@ export default function RegistrationPage() {
         <div className="flex items-center justify-center min-h-screen bg-gray-100">
             <form onSubmit={handleSubmit} className="bg-white shadow-md rounded-xl p-8 w-full max-w-sm">
                 <h1 className="text-2xl font-semibold text-center mb-6">Регистрация</h1>
-                {console.log(errors)}
                 {/* Username */}
                 <input
                     type="text"
@@ -119,7 +118,7 @@ export default function RegistrationPage() {
                 <button
                     type="submit"
                     disabled={loading}
-                    className="bg-blue-600 text-white w-full py-2 rounded-lg hover:bg-blue-700 transition disabled:opacity-50"
+                    className="bg-blue-600 text-white w-full py-2 rounded-lg mt-3 hover:bg-blue-700 transition disabled:opacity-50"
                 >
                     {loading ? "Регистрация..." : "Зарегистрироваться"}
                 </button>

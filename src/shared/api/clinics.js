@@ -21,9 +21,7 @@ export const getClinicById = async (id) => {
 
 export const getClinicAppointments = async (clinicId) => {
     try {
-        const response = await axios.get(
-            `${API_URL}/vet-clinics/${clinicId}/appointments/`
-        );
+        const response = await axios.get(`${API_URL}/vet-clinics/${clinicId}/appointments/`);
         return response.data;
     } catch (error) {
         throw error;
