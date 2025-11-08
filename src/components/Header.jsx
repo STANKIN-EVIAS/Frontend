@@ -70,7 +70,7 @@ function ProfileButton({ user }) {
             >
                 {/* Аватар показываем только если пользователь авторизован */}
                 {user && (
-                    <div className="w-7 h-7x rounded-full overflow-hidden">
+                    <div className="w-7 h-7 rounded-full overflow-hidden">
                         {user.image ? (
                             <img
                                 src={user.image}
