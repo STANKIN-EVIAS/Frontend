@@ -19,6 +19,15 @@ export const getClinicById = async (id) => {
     }
 };
 
+export const getClinicServices = async (clinicId) => {
+    try {
+        const response = await axios.get(`${BACKEND_URL}/vet-clinics/${clinicId}/appointments/`);
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
 export const getClinicAppointments = async (clinicId) => {
     try {
         const response = await axios.get(`${BACKEND_URL}/vet-clinics/${clinicId}/appointments/`);

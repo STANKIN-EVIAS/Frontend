@@ -20,10 +20,17 @@ export async function authFetch(url, options = {}) {
             if (!newAccess) {
                 throw new Error("Ошибка обновления токена");
             }
+            // Перед повторным запросом проверяем, что токен действительно обновился в localStorage
+            const currentAccess = localStorage.getItem("accessToken");
+            if (!currentAccess) {
+                throw new Error("Токен не был обновлен");
+            }
 
+            // Обновляем заголовки с новым токеном
             const retryHeaders = {
-                ...headers,
-                Authorization: `Bearer ${newAccess}`,
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${currentAccess}`,
+                ...options.headers,
             };
 
             res = await fetch(url, { ...options, headers: retryHeaders });
@@ -69,12 +76,12 @@ export async function register({ username, email, first_name, last_name, passwor
         body: JSON.stringify({ username, email, first_name, last_name, password1, password2 }),
     });
 
+    const data = await res.json();
+
     if (!res.ok) {
-        const errorData = await res.json(); // объект с полями ошибок
-        throw errorData; // <- кидаем объект
+        throw data; // кидаем объект с ошибками
     }
 
-    const data = await res.json();
     if (data.access && data.refresh) {
         localStorage.setItem("accessToken", data.access);
         localStorage.setItem("refreshToken", data.refresh);
