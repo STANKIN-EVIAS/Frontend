@@ -22,9 +22,9 @@ export function AuthProvider({ children }) {
             try {
                 // Если access токен отсутствует, но есть refresh → обновляем
                 let token = access;
+
                 if (!token && refresh) {
                     token = await refreshToken(refresh);
-                    localStorage.setItem("accessToken", token);
                 }
 
                 // Загружаем профиль
@@ -49,11 +49,7 @@ export function AuthProvider({ children }) {
         setUser(null);
     };
 
-    return (
-        <AuthContext.Provider value={{ user, loading, logout, setUser }}>
-            {children}
-        </AuthContext.Provider>
-    );
+    return <AuthContext.Provider value={{ user, loading, logout, setUser }}>{children}</AuthContext.Provider>;
 }
 
 export const useAuth = () => useContext(AuthContext);
