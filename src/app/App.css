@@ -7,7 +7,3 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-.leaflet-container {
-    z-index: 0;
-}

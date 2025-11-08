@@ -23,12 +23,15 @@ const ClinicsList = ({ clinics, onShowOnMap }) => {
                         </p>
                     </div>
 
-                    <button
-                        onClick={() => onShowOnMap && onShowOnMap(clinic.latitude, clinic.longitude)}
-                        className="mt-2 w-full md:w-auto bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition"
-                    >
-                        Показать на карте
-                    </button>
+                    {/* Показываем кнопку только если передан onShowOnMap */}
+                    {onShowOnMap && (
+                        <button
+                            onClick={() => onShowOnMap(clinic.latitude, clinic.longitude)}
+                            className="mt-2 w-full md:w-auto bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition"
+                        >
+                            Показать на карте
+                        </button>
+                    )}
                 </div>
             ))}
         </div>
