@@ -5,51 +5,62 @@ import { getProfile } from "shared/api/profile";
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-    const [user, setUser] = useState(null);
-    const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        const initAuth = async () => {
-            const access = localStorage.getItem("accessToken");
-            const refresh = localStorage.getItem("refreshToken");
+  useEffect(() => {
+    const initAuth = async () => {
+      const access = localStorage.getItem("accessToken");
+      const refresh = localStorage.getItem("refreshToken");
 
-            // Если нет токенов → не авторизован
-            if (!access && !refresh) {
-                setLoading(false);
-                return;
-            }
+      // Если нет токенов → не авторизован
+      if (!access && !refresh) {
+        setLoading(false);
+        return;
+      }
 
-            try {
-                // Если access токен отсутствует, но есть refresh → обновляем
-                let token = access;
+      try {
+        let token = access;
 
-                if (!token && refresh) {
-                    token = await refreshToken(refresh);
-                }
+        // Только если есть refresh → пробуем обновить
+        if (!token && refresh) {
+          token = await refreshToken(refresh);
+        }
 
-                // Загружаем профиль
-                const profile = await getProfile();
-                setUser(profile);
-            } catch (err) {
-                // токен невалиден → выходим
-                localStorage.removeItem("accessToken");
-                localStorage.removeItem("refreshToken");
-                setUser(null);
-            } finally {
-                setLoading(false);
-            }
-        };
+        // Если токен всё ещё недействителен → очистка
+        if (!token) {
+          localStorage.removeItem("accessToken");
+          localStorage.removeItem("refreshToken");
+          setUser(null);
+          setLoading(false);
+          return;
+        }
 
-        initAuth();
-    }, []);
+        // Загружаем профиль
+        const profile = await getProfile();
+        setUser(profile);
+      } catch (err) {
+        console.error("Auth error:", err);
 
-    const logout = () => {
+        // Очистка токенов и состояния
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");
         setUser(null);
+      } finally {
+        setLoading(false);
+      }
     };
 
-    return <AuthContext.Provider value={{ user, loading, logout, setUser }}>{children}</AuthContext.Provider>;
+    initAuth();
+  }, []);
+
+  const logout = () => {
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+    setUser(null);
+  };
+
+  return <AuthContext.Provider value={{ user, loading, logout, setUser }}>{children}</AuthContext.Provider>;
 }
 
 export const useAuth = () => useContext(AuthContext);
