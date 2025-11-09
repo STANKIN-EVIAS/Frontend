@@ -1,4 +1,4 @@
-import SymptomsList from "components/symptoms/SymptomsList";
+import SymptomsList from "components/Symptoms/SymptomsList";
 
 const SymptomsPage = () => {
     return (

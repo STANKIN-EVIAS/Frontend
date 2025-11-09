@@ -1,4 +1,4 @@
-import ClinicsList from "components/clinics/ClinicsList";
+import ClinicsList from "components/Clinics/ClinicsList";
 import { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import { getClinics } from "shared/api/clinics";

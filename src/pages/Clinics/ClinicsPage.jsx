@@ -1,6 +1,6 @@
-import ClinicsList from "components/clinics/ClinicsList";
-import ClinicsMap from "components/clinics/ClinicsMap";
-import { useClinics } from "components/clinics/useClinics";
+import ClinicsList from "components/Clinics/ClinicsList";
+import ClinicsMap from "components/Clinics/ClinicsMap";
+import { useClinics } from "components/Clinics/useClinics";
 import { useState } from "react";
 
 const ClinicsPage = () => {

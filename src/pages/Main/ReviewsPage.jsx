@@ -1,4 +1,4 @@
-import ReviewsList from "components/reviews/ReviewsList";
+import ReviewsList from "components/Reviews/ReviewsList";
 
 const ReviewsPage = () => {
     return (

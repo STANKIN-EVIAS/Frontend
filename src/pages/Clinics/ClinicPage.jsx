@@ -1,4 +1,4 @@
-import ClinicsMap from "components/clinics/ClinicsMap";
+import ClinicsMap from "components/Clinics/ClinicsMap";
 import { useEffect, useState } from "react";
 import { FaEnvelope, FaGlobe, FaMapMarkerAlt, FaPhone } from "react-icons/fa";
 import { useParams } from "react-router-dom";
