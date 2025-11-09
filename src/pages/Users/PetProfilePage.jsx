@@ -2,9 +2,9 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useCallback, useEffect, useState } from "react";
 import { BACKEND_URL } from "config";
 import { authFetch } from "shared/api/auth";
-import FirstIcon from "assets/2025-11-09_18-17-08.png";
-import SecondIcon from "assets/2025-11-09_18-23-50.png";
-import TrirdIcon from "assets/2025-11-09_18-24-00.png";
+const FirstIcon = "/assets/2025-11-09_18-17-08.png";
+const SecondIcon = "public/assets/2025-11-09_18-23-50.png";
+const TrirdIcon = "public/assets/2025-11-09_18-24-00.png";
 
 function DocumentCard({ title, onClick, iconSrc }) {
   return (

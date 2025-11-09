@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { authFetch } from "shared/api/auth";
 
 // Импортируем заглушки
-import userPlaceholder from "assets/Placeholder_resized-scaled.jpg";
-import petPlaceholder from "assets/Placeholder_resized-scaled.jpg";
+const userPlaceholder = "assets/Placeholder_resized-scaled.jpg";
+const petPlaceholder = "assets/Placeholder_resized-scaled.jpg";
 
 function PetCard({ pet }) {
   const navigate = useNavigate();
