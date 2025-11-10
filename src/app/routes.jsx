@@ -8,8 +8,6 @@ import HomePage from "pages/Main/HomePage.jsx";
 import ServicesPage from "pages/ServicesPage/ServicesPage.jsx";
 import SymptomsPage from "pages/SymptomsPage/SymptomsPage.jsx";
 import UserProfilePage from "pages/Users/UserProfilePage.jsx";
-import PetProfilePage from "pages/Users/PetProfilePage.jsx"; // Добавьте этот импорт
-import React from "react";
 import { Route, Routes } from "react-router-dom";
 
 export default function AppRoutes() {
@@ -19,7 +17,6 @@ export default function AppRoutes() {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/registration" element={<RegistrationPage />} />
       <Route path="/profile" element={<UserProfilePage />} />
-      <Route path="/pet/:petId" element={<PetProfilePage />} /> {/* Добавьте этот маршрут */}
       <Route path="/services" element={<ServicesPage />} />
       <Route path="/contacts" element={<ContactsPage />} />
       {ReviewsRoutes()}

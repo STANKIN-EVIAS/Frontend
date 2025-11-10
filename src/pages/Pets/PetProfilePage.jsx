@@ -1,25 +1,25 @@
-import { useParams, useNavigate } from "react-router-dom";
-import { useCallback, useEffect, useState } from "react";
 import { BACKEND_URL } from "config";
+import { useCallback, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { authFetch } from "shared/api/auth";
 const FirstIcon = "/assets/2025-11-09_18-17-08.png";
-const SecondIcon = "public/assets/2025-11-09_18-23-50.png";
-const TrirdIcon = "public/assets/2025-11-09_18-24-00.png";
+const SecondIcon = "/assets/2025-11-09_18-23-50.png";
+const TrirdIcon = "/assets/2025-11-09_18-24-00.png";
 
 function DocumentCard({ title, onClick, iconSrc }) {
   return (
-    <button 
+    <button
       className="bg-white block cursor-pointer overflow-clip relative rounded-[25px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] h-[120px] w-full min-w-[300px] hover:shadow-lg transition-shadow duration-200"
       onClick={onClick}
     >
       <div className="absolute flex flex-col font-['Inter:Semi_Bold',sans-serif] font-semibold justify-center leading-[0] left-[60px] not-italic text-[20px] text-black text-left top-1/2 tracking-[-0.1px] translate-y-[-50%] w-[calc(100%-120px)]">
         <p className="leading-[1.45] whitespace-pre">{title}</p>
       </div>
-      
+
       {/* Иконка слева */}
       <div className="absolute left-[19px] size-[32px] top-1/2 translate-y-[-50%]">
-        <img 
-          src={iconSrc} 
+        <img
+          src={iconSrc}
           alt={title}
           className="block size-full object-contain"
           onError={(e) => {
@@ -28,7 +28,7 @@ function DocumentCard({ title, onClick, iconSrc }) {
           }}
         />
       </div>
-      
+
       {/* Стрелка справа */}
       <div className="absolute bottom-[40px] right-[19px] top-[43px]">
         <div className="absolute right-0 size-[26px] top-0" role="button" tabIndex="0">
@@ -49,12 +49,12 @@ function DocumentCard({ title, onClick, iconSrc }) {
 
 function getGenderText(gender) {
   const genderMap = {
-    'male': 'м',
-    'female': 'ж',
-    'M': 'м',
-    'F': 'ж'
+    male: "м",
+    female: "ж",
+    M: "м",
+    F: "ж",
   };
-  return genderMap[gender] || gender || 'не указан';
+  return genderMap[gender] || gender || "не указан";
 }
 
 export default function PetProfilePage() {
@@ -73,7 +73,7 @@ export default function PetProfilePage() {
 
     setLoading(true);
     setError(null);
-    
+
     try {
       const res = await authFetch(`${BACKEND_URL}/pets/${petId}/`);
       if (!res.ok) {
@@ -121,9 +121,7 @@ export default function PetProfilePage() {
     return (
       <div className="bg-neutral-100 min-h-screen flex justify-center items-center">
         <div className="text-center">
-          <p className="text-lg text-red-600 mb-4">
-            {error || "Питомец не найден"}
-          </p>
+          <p className="text-lg text-red-600 mb-4">{error || "Питомец не найден"}</p>
           <button
             onClick={handleBackClick}
             className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
@@ -140,7 +138,7 @@ export default function PetProfilePage() {
       <div className="max-w-7xl mx-auto">
         {/* Хедер с кнопкой назад */}
         <div className="mb-6">
-          <button 
+          <button
             onClick={handleBackClick}
             className="flex items-center text-blue-600 hover:text-blue-800 font-medium transition-colors font-['Inter:Semi_Bold',sans-serif]"
           >
@@ -156,13 +154,13 @@ export default function PetProfilePage() {
               <img
                 src={pet.image || "/default-pet-image.png"}
                 alt={pet.name}
-                className="w-32 h-32 sm:w-36 sm:h-36 rounded-full object-cover border-4 border-gray-100"
+                className="w-32 h-32 sm:w-44 sm:h-44 rounded-full object-cover border-4 border-gray-100"
                 onError={(e) => {
                   e.target.src = "/default-pet-image.png";
                 }}
               />
             </div>
-            
+
             <div className="flex-1 text-center sm:text-left">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4">
                 <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-2 sm:mb-0 font-['Inter:Semi_Bold',sans-serif]">
@@ -175,16 +173,16 @@ export default function PetProfilePage() {
                   Редактировать
                 </button>
               </div>
-              
+
               <div className="space-y-2 text-gray-600 font-['Inter:Light',sans-serif]">
                 <p className="text-base">
-                  <span className="font-semibold">Вид:</span> {pet.genus} 
+                  <span className="font-semibold">Вид:</span> {pet.genus_name}
                 </p>
                 <p className="text-base">
-                  <span className="font-semibold">Порода:</span> {pet.species || 'не указана'}
+                  <span className="font-semibold">Порода:</span> {pet.species_name || "не указана"}
                 </p>
                 <p className="text-base">
-                  <span className="font-semibold">Возраст:</span> {pet.age || 'не указан'}
+                  <span className="font-semibold">Возраст:</span> {pet.age || "не указан"}
                 </p>
                 <p className="text-base">
                   <span className="font-semibold">Пол:</span> {getGenderText(pet.gender)}
@@ -206,19 +204,19 @@ export default function PetProfilePage() {
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <DocumentCard 
-              title="Медицинская карта" 
-              onClick={() => handleDocumentClick('medical')}
+            <DocumentCard
+              title="Медицинская карта"
+              onClick={() => handleDocumentClick("medical")}
               iconSrc={FirstIcon} // Ваша иконка для мед. карты
             />
-            <DocumentCard 
-              title="Сертификаты" 
-              onClick={() => handleDocumentClick('certificates')}
+            <DocumentCard
+              title="Сертификаты"
+              onClick={() => handleDocumentClick("certificates")}
               iconSrc={SecondIcon} // Ваша иконка для сертификатов
             />
-            <DocumentCard 
-              title="Паспорт" 
-              onClick={() => handleDocumentClick('passport')}
+            <DocumentCard
+              title="Паспорт"
+              onClick={() => handleDocumentClick("passport")}
               iconSrc={TrirdIcon} // Ваша иконка для паспорта
             />
           </div>
