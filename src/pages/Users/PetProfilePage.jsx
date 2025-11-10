@@ -3,8 +3,8 @@ import { useCallback, useEffect, useState } from "react";
 import { BACKEND_URL } from "config";
 import { authFetch } from "shared/api/auth";
 const FirstIcon = "/assets/2025-11-09_18-17-08.png";
-const SecondIcon = "public/assets/2025-11-09_18-23-50.png";
-const TrirdIcon = "public/assets/2025-11-09_18-24-00.png";
+const SecondIcon = "/assets/2025-11-09_18-23-50.png";
+const TrirdIcon = "/assets/2025-11-09_18-24-00.png";
 
 function DocumentCard({ title, onClick, iconSrc }) {
   return (
@@ -156,7 +156,7 @@ export default function PetProfilePage() {
               <img
                 src={pet.image || "/default-pet-image.png"}
                 alt={pet.name}
-                className="w-32 h-32 sm:w-36 sm:h-36 rounded-full object-cover border-4 border-gray-100"
+                className="w-32 h-32 sm:w-44 sm:h-44 rounded-full object-cover border-4 border-gray-100"
                 onError={(e) => {
                   e.target.src = "/default-pet-image.png";
                 }}
@@ -178,10 +178,10 @@ export default function PetProfilePage() {
               
               <div className="space-y-2 text-gray-600 font-['Inter:Light',sans-serif]">
                 <p className="text-base">
-                  <span className="font-semibold">Вид:</span> {pet.genus} 
+                  <span className="font-semibold">Вид:</span> {pet.genus_name} 
                 </p>
                 <p className="text-base">
-                  <span className="font-semibold">Порода:</span> {pet.species || 'не указана'}
+                  <span className="font-semibold">Порода:</span> {pet.species_name || 'не указана'}
                 </p>
                 <p className="text-base">
                   <span className="font-semibold">Возраст:</span> {pet.age || 'не указан'}
