@@ -1,7 +1,8 @@
 import { BACKEND_URL } from "config";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { authFetch } from "shared/api/auth";
+import { useGenusSpecies } from "shared/hooks/useGenusSpecies";
 
 export default function AddPet() {
   const navigate = useNavigate();
@@ -16,45 +17,7 @@ export default function AddPet() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const [genusList, setGenusList] = useState([]);
-  const [speciesList, setSpeciesList] = useState([]);
-
-  // Загрузка родов животных при монтировании
-  useEffect(() => {
-    const fetchGenus = async () => {
-      try {
-        const res = await authFetch(`${BACKEND_URL}/pets/genus/`);
-        if (!res.ok) throw new Error("Ошибка при загрузке видов");
-        const data = await res.json();
-        setGenusList(Array.isArray(data) ? data : []);
-      } catch (err) {
-        console.error(err);
-        setGenusList([]);
-      }
-    };
-    fetchGenus();
-  }, []);
-
-  // Загрузка пород при выборе рода
-  useEffect(() => {
-    const fetchSpecies = async () => {
-      if (!form.genus_id) {
-        setSpeciesList([]);
-        return;
-      }
-
-      try {
-        const res = await authFetch(`${BACKEND_URL}/pets/species/?genus=${form.genus_id}`);
-        if (!res.ok) throw new Error("Ошибка при загрузке пород");
-        const data = await res.json();
-        setSpeciesList(Array.isArray(data) ? data : []);
-      } catch (err) {
-        console.error(err);
-        setSpeciesList([]);
-      }
-    };
-    fetchSpecies();
-  }, [form.genus_id]);
+  const { genusList, speciesList } = useGenusSpecies(form.genus_id);
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -124,7 +87,7 @@ export default function AddPet() {
               onChange={handleChange}
               className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500"
             >
-              <option value="">Выберите вид</option>
+              <option value="">Нет вида</option>
               {genusList.map((g) => (
                 <option key={g.id} value={g.id}>
                   {g.name}
@@ -143,7 +106,7 @@ export default function AddPet() {
               className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500"
               disabled={!form.genus_id || speciesList.length === 0}
             >
-              <option value="">Выберите породу</option>
+              <option value="">Нет породы</option>
               {Array.isArray(speciesList) &&
                 speciesList.map((s) => (
                   <option key={s.id} value={s.id}>
@@ -153,20 +116,20 @@ export default function AddPet() {
             </select>
           </div>
 
-          {/* Пол и возраст */}
           <div className="grid grid-cols-2 gap-4">
+            {/* Дата рождения */}
             <div>
-              <label className="block text-gray-700 mb-1">Возраст</label>
+              <label className="block text-gray-700 mb-1">Дата рождения</label>
               <input
-                type="number"
-                name="age"
-                value={form.age}
+                type="date"
+                name="birth_date"
+                value={form.birth_date}
                 onChange={handleChange}
-                min="0"
                 className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500"
               />
             </div>
 
+            {/* Пол */}
             <div>
               <label className="block text-gray-700 mb-1">Пол</label>
               <select

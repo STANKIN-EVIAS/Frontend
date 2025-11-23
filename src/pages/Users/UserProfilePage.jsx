@@ -39,9 +39,21 @@ function PetCard({ pet }) {
         />
       </div>
       <div className="absolute bottom-[90px] flex flex-col font-['Inter:Light',sans-serif] font-light h-[43px] justify-center leading-[0] left-[18px] not-italic right-[18px] text-[12px] text-black text-center tracking-[-0.06px] translate-y-[50%]">
-        <p className="leading-[1.45]">
-          Вид: {pet.genus}; порода: {pet.species}; возраст: {pet.age || "не указан"}; пол: {getGenderText(pet.gender)};
-        </p>
+        {pet.genus && <p className="leading-[1.45]">Вид: {pet.genus}</p>}
+        {pet.species && <p className="leading-[1.45]">Порода: {pet.species}</p>}
+        {pet.age && (
+          <p className="leading-[1.45]">
+            Возраст:{" "}
+            {pet.age.years
+              ? `${pet.age.years} ${
+                  pet.age.years === 1 ? "год" : pet.age.years >= 2 && pet.age.years <= 4 ? "года" : "лет"
+                }`
+              : pet.age.months
+              ? `${pet.age.months} месяцев`
+              : "не указан"}
+          </p>
+        )}
+        {pet.gender && <p className="leading-[1.45]">Пол: {getGenderText(pet.gender)}</p>}
       </div>
       <div
         className="absolute bg-blue-600 bottom-[21px] h-[33px] left-1/2 overflow-clip rounded-[25px] w-[116px] translate-x-[-50%] hover:bg-blue-700 transition-colors cursor-pointer"
@@ -64,10 +76,8 @@ function PetCard({ pet }) {
 
 function getGenderText(gender) {
   const genderMap = {
-    male: "м",
-    female: "ж",
-    M: "м",
-    F: "ж",
+    M: "Мужской",
+    F: "Женский",
   };
   return genderMap[gender] || gender || "не указан";
 }

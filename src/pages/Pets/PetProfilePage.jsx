@@ -2,9 +2,9 @@ import { BACKEND_URL } from "config";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { authFetch } from "shared/api/auth";
-const FirstIcon = "/assets/2025-11-09_18-17-08.png";
-const SecondIcon = "/assets/2025-11-09_18-23-50.png";
-const TrirdIcon = "/assets/2025-11-09_18-24-00.png";
+const MedicalIcon = "/assets/2025-11-09_18-17-08.png";
+const CertificateIcon = "/assets/2025-11-09_18-23-50.png";
+const PassportIcon = "/assets/2025-11-09_18-24-00.png";
 
 function DocumentCard({ title, onClick, iconSrc }) {
   return (
@@ -49,10 +49,8 @@ function DocumentCard({ title, onClick, iconSrc }) {
 
 function getGenderText(gender) {
   const genderMap = {
-    male: "м",
-    female: "ж",
-    M: "м",
-    F: "ж",
+    M: "Мужской",
+    F: "Женский",
   };
   return genderMap[gender] || gender || "не указан";
 }
@@ -175,21 +173,31 @@ export default function PetProfilePage() {
               </div>
 
               <div className="space-y-2 text-gray-600 font-['Inter:Light',sans-serif]">
-                <p className="text-base">
-                  <span className="font-semibold">Вид:</span> {pet.genus_name}
-                </p>
-                <p className="text-base">
-                  <span className="font-semibold">Порода:</span> {pet.species_name || "не указана"}
-                </p>
-                <p className="text-base">
-                  <span className="font-semibold">Возраст:</span> {pet.age || "не указан"}
-                </p>
-                <p className="text-base">
-                  <span className="font-semibold">Пол:</span> {getGenderText(pet.gender)}
-                </p>
-                {pet.description && (
-                  <p className="text-base mt-3">
-                    <span className="font-semibold">Описание:</span> {pet.description}
+                {pet.genus && (
+                  <p className="text-base">
+                    <span className="font-semibold">Вид:</span> {pet.genus}
+                  </p>
+                )}
+                {pet.species && (
+                  <p className="text-base">
+                    <span className="font-semibold">Порода:</span> {pet.species || "не указана"}
+                  </p>
+                )}
+                {pet.age && (
+                  <p className="leading-[1.45]">
+                    <span className="font-semibold">Возраст:</span>{" "}
+                    {pet.age.years
+                      ? `${pet.age.years} ${
+                          pet.age.years === 1 ? "год" : pet.age.years >= 2 && pet.age.years <= 4 ? "года" : "лет"
+                        }` + (pet.age.months ? ` и ${pet.age.months} месяцев` : "")
+                      : pet.age.months
+                      ? `${pet.age.months} месяцев`
+                      : "не указан"}
+                  </p>
+                )}
+                {pet.gender && (
+                  <p className="text-base">
+                    <span className="font-semibold">Пол:</span> {getGenderText(pet.gender)}
                   </p>
                 )}
               </div>
@@ -207,17 +215,17 @@ export default function PetProfilePage() {
             <DocumentCard
               title="Медицинская карта"
               onClick={() => handleDocumentClick("medical")}
-              iconSrc={FirstIcon} // Ваша иконка для мед. карты
+              iconSrc={MedicalIcon} // Ваша иконка для мед. карты
             />
             <DocumentCard
               title="Сертификаты"
               onClick={() => handleDocumentClick("certificates")}
-              iconSrc={SecondIcon} // Ваша иконка для сертификатов
+              iconSrc={CertificateIcon} // Ваша иконка для сертификатов
             />
             <DocumentCard
               title="Паспорт"
               onClick={() => handleDocumentClick("passport")}
-              iconSrc={TrirdIcon} // Ваша иконка для паспорта
+              iconSrc={PassportIcon} // Ваша иконка для паспорта
             />
           </div>
         </div>
