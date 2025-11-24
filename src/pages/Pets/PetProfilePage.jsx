@@ -1,7 +1,8 @@
-import { BACKEND_URL } from "config";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { authFetch } from "shared/api/auth";
+import { deletePet, getPet } from "shared/api/pets";
+
+const petPlaceholder = "/assets/pet-placeholder.avif";
 const MedicalIcon = "/assets/2025-11-09_18-17-08.png";
 const CertificateIcon = "/assets/2025-11-09_18-23-50.png";
 const PassportIcon = "/assets/2025-11-09_18-24-00.png";
@@ -73,11 +74,7 @@ export default function PetProfilePage() {
     setError(null);
 
     try {
-      const res = await authFetch(`${BACKEND_URL}/pets/${petId}/`);
-      if (!res.ok) {
-        throw new Error(`Не удалось загрузить профиль питомца: ${res.status}`);
-      }
-      const petData = await res.json();
+      const petData = await getPet(petId);
       setPet(petData);
     } catch (error) {
       console.error("Ошибка загрузки профиля питомца:", error);
@@ -95,7 +92,20 @@ export default function PetProfilePage() {
     // Навигация на конкретный документ
     navigate(`/pet/${petId}/${documentType}`);
   };
-
+  const handleDeletePet = async () => {
+    if (!window.confirm("Вы уверены, что хотите удалить этого питомца? Это действие невозможно отменить.")) return;
+    setLoading(true);
+    setError(null);
+    try {
+      await deletePet(petId);
+      navigate("/profile");
+    } catch (err) {
+      console.error("Ошибка при удалении питомца:", err);
+      setError(err.message || "Не удалось удалить питомца");
+    } finally {
+      setLoading(false);
+    }
+  };
   const handleBackClick = () => {
     navigate(-1);
   };
@@ -150,11 +160,11 @@ export default function PetProfilePage() {
           <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6">
             <div className="flex-shrink-0">
               <img
-                src={pet.image || "/default-pet-image.png"}
+                src={pet.image || petPlaceholder}
                 alt={pet.name}
                 className="w-32 h-32 sm:w-44 sm:h-44 rounded-full object-cover border-4 border-gray-100"
                 onError={(e) => {
-                  e.target.src = "/default-pet-image.png";
+                  e.target.src = petPlaceholder;
                 }}
               />
             </div>
@@ -164,12 +174,20 @@ export default function PetProfilePage() {
                 <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-2 sm:mb-0 font-['Inter:Semi_Bold',sans-serif]">
                   {pet.name}
                 </h1>
-                <button
-                  onClick={handleEditPet}
-                  className="bg-blue-600 text-white px-4 py-2 rounded-3xl hover:bg-blue-700 transition-colors text-sm font-medium font-['Inter:Semi_Bold',sans-serif]"
-                >
-                  Редактировать
-                </button>
+                <div className="flex gap-3">
+                  <button
+                    onClick={handleEditPet}
+                    className="bg-blue-600 text-white px-4 py-2 rounded-3xl hover:bg-blue-700 transition-colors text-sm font-medium font-['Inter:Semi_Bold',sans-serif]"
+                  >
+                    Редактировать
+                  </button>
+                  <button
+                    onClick={handleDeletePet}
+                    className="bg-red-600 text-white px-4 py-2 rounded-3xl hover:bg-red-700 transition-colors text-sm font-medium"
+                  >
+                    Удалить
+                  </button>
+                </div>
               </div>
 
               <div className="space-y-2 text-gray-600 font-['Inter:Light',sans-serif]">

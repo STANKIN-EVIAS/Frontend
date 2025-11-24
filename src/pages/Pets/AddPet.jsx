@@ -1,7 +1,6 @@
-import { BACKEND_URL } from "config";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { authFetch } from "shared/api/auth";
+import { createPet } from "shared/api/pets";
 import { useGenusSpecies } from "shared/hooks/useGenusSpecies";
 
 export default function AddPet() {
@@ -39,15 +38,7 @@ export default function AddPet() {
     });
 
     try {
-      const res = await authFetch(`${BACKEND_URL}/pets/`, {
-        method: "POST",
-        body: formData,
-      });
-      if (!res.ok) {
-        const data = await res.json().catch(() => ({}));
-        throw new Error(data.detail || "Ошибка при добавлении питомца");
-      }
-
+      await createPet(formData);
       navigate("/profile");
     } catch (err) {
       console.error(err);

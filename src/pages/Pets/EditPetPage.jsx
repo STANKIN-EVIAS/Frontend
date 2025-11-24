@@ -2,6 +2,7 @@ import { BACKEND_URL } from "config";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { authFetch } from "shared/api/auth";
+import { updatePet } from "shared/api/pets";
 import { useGenusSpecies } from "shared/hooks/useGenusSpecies";
 
 export default function EditPetPage() {
@@ -68,14 +69,7 @@ export default function EditPetPage() {
       if (pet.image instanceof File) {
         formData.append("image", pet.image);
       }
-
-      const res = await authFetch(`${BACKEND_URL}/pets/${petId}/`, {
-        method: "PATCH",
-        body: formData,
-      });
-
-      if (!res.ok) throw new Error("Не удалось сохранить изменения " + res.statusText);
-
+      await updatePet(petId, formData);
       navigate(`/pet/${petId}`);
     } catch (e) {
       setError(e.message);
