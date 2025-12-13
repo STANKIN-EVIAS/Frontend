@@ -1,33 +1,46 @@
 // shared/api/medicalCards.js
-import axios from "axios";
 import { BACKEND_URL } from "config";
+import { authFetch } from "./auth";
 
-export const getPetMedicalCard = async (petId) => {
+export async function getPetMedicalCard(petId) {
   try {
-    const response = await axios.get(`${BACKEND_URL}/pets-documents/medical-cards/pet/${petId}/`);
-    return response.data;
+    const url = `${BACKEND_URL}/pets-documents/medical-cards/pet/${petId}/`;
+    const res = await authFetch(url);
+    return res.json();
   } catch (error) {
-    if (error.response?.status === 404) {
+    if (error.res?.status === 404) {
       return null;
     }
     throw error;
   }
-};
+}
 
 export const createMedicalCard = async (petId, data) => {
-  const response = await axios.get(`${BACKEND_URL}/pets-documents/medical-cards`, {
-    ...data,
-    pet: petId,
-  });
-  return response.data;
+  const url = `${BACKEND_URL}/pets-documents/medical-cards/`;
+  const res = await authFetch(url, { method: "POST", body: data });
+  if (!res.ok) {
+    const data = await res.json().catch(() => ({}));
+    throw new Error(data.detail);
+  }
+  return res.json();
 };
 
 export const updateMedicalCard = async (id, data) => {
-  const response = await axios.get(`${BACKEND_URL}/pets-documents/medical-cards/${id}/`, data);
-  return response.data;
+  const url = `${BACKEND_URL}/pets-documents/medical-cards/${id}/`;
+  const res = await authFetch(url, { method: "PATCH", body: data });
+  if (!res.ok) {
+    const data = await res.json().catch(() => ({}));
+    throw new Error(data.detail);
+  }
+  return res.json();
 };
 
 export const deleteMedicalCard = async (id) => {
-  const response = await axios.get(`${BACKEND_URL}/pets-documents/medical-cards/${id}/`);
-  return response.data;
+  const url = `${BACKEND_URL}/pets-documents/medical-cards/${id}/`;
+  const res = await authFetch(url, { method: "DELETE" });
+  if (!res.ok) {
+    const data = await res.json().catch(() => ({}));
+    throw new Error(data.detail);
+  }
+  return true;
 };
