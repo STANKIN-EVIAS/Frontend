@@ -27,8 +27,8 @@ export const useServices = () => {
     if (!q) return services;
     return services.filter((s) => {
       const name = (s.name || "").toLowerCase();
-      const descr = (s.description || "").toLowerCase();
-      return name.includes(q) || descr.includes(q);
+      const description = (s.description || "").toLowerCase();
+      return name.includes(q) || description.includes(q);
     });
   }, [services, search]);
 

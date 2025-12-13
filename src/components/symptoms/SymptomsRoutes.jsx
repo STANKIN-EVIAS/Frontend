@@ -1,4 +1,4 @@
-import SymptomsPage from "pages/SymptomsPage/SymptomsPage.jsx";
+import SymptomsPage from "pages/Symptoms/SymptomsPage.jsx";
 import React from "react";
 import { Route } from "react-router-dom";
 

@@ -1,4 +1,4 @@
-import ServicesPage from "pages/ServicesPage/ServicesPage.jsx";
+import ServicesPage from "pages/Services/ServicesPage.jsx";
 import React from "react";
 import { Route } from "react-router-dom";
 
