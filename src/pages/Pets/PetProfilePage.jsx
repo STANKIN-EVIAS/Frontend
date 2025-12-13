@@ -90,8 +90,13 @@ export default function PetProfilePage() {
 
   const handleDocumentClick = (documentType) => {
     // Навигация на конкретный документ
-    navigate(`/pet/${petId}/${documentType}`);
+    if (documentType === "medical") {
+      navigate(`/pet/${petId}/medical-card`);
+    } else {
+      navigate(`/pet/${petId}/${documentType}`);
+    }
   };
+  
   const handleDeletePet = async () => {
     if (!window.confirm("Вы уверены, что хотите удалить этого питомца? Это действие невозможно отменить.")) return;
     setLoading(true);
@@ -106,12 +111,12 @@ export default function PetProfilePage() {
       setLoading(false);
     }
   };
+  
   const handleBackClick = () => {
     navigate(-1);
   };
 
   const handleEditPet = () => {
-    // Навигация на страницу редактирования питомца
     navigate(`/pet/${petId}/edit`);
   };
 
@@ -233,17 +238,17 @@ export default function PetProfilePage() {
             <DocumentCard
               title="Медицинская карта"
               onClick={() => handleDocumentClick("medical")}
-              iconSrc={MedicalIcon} // Ваша иконка для мед. карты
+              iconSrc={MedicalIcon}
             />
             <DocumentCard
               title="Сертификаты"
               onClick={() => handleDocumentClick("certificates")}
-              iconSrc={CertificateIcon} // Ваша иконка для сертификатов
+              iconSrc={CertificateIcon}
             />
             <DocumentCard
               title="Паспорт"
               onClick={() => handleDocumentClick("passport")}
-              iconSrc={PassportIcon} // Ваша иконка для паспорта
+              iconSrc={PassportIcon}
             />
           </div>
         </div>
