@@ -42,7 +42,7 @@ export async function authFetch(url, options = {}) {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
     setTimeout(() => (window.location.href = "/login"), 50);
-    return Promise.reject(new Error("Неавторизован"));
+    return Promise.reject(new Error("Неавторизованн"));
   }
 
   return res;

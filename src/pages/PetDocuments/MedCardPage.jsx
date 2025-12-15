@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getPet } from "shared/api/pets";
 import { getPetMedicalCard } from "shared/api/medicalCards";
+import { getPet } from "shared/api/pets";
 
 const petPlaceholder = "/assets/pet-placeholder.avif";
 
@@ -54,31 +54,31 @@ function formatDate(dateString) {
 // Функция для парсинга текстовых полей в массив
 function parseTextToArray(text) {
   if (!text) return [];
-  return text.split('\n').filter(item => item.trim() !== '');
+  return text.split("\n").filter((item) => item.trim() !== "");
 }
 
 // Функция для парсинга прививок
 function parseVaccinations(vaccinationsText) {
   if (!vaccinationsText) return [];
-  
+
   try {
-    const lines = vaccinationsText.split('\n').filter(line => line.trim() !== '');
-    return lines.map(line => {
+    const lines = vaccinationsText.split("\n").filter((line) => line.trim() !== "");
+    return lines.map((line) => {
       const lineText = line.trim();
-      
-      if (lineText.includes('-')) {
-        const [name, datesPart] = lineText.split('-').map(part => part.trim());
+
+      if (lineText.includes("-")) {
+        const [name, datesPart] = lineText.split("-").map((part) => part.trim());
         if (datesPart) {
-          const dates = datesPart.split(',').map(date => date.trim());
+          const dates = datesPart.split(",").map((date) => date.trim());
           return {
             name,
-            date: dates[0] || '',
-            nextDate: dates[1] || ''
+            date: dates[0] || "",
+            nextDate: dates[1] || "",
           };
         }
       }
-      
-      return { name: lineText, date: '', nextDate: '' };
+
+      return { name: lineText, date: "", nextDate: "" };
     });
   } catch (error) {
     console.error("Ошибка парсинга прививок:", error);
@@ -106,17 +106,17 @@ export default function MedicalCardPage() {
 
     try {
       console.log("Начинаем загрузку данных для питомца:", petId);
-      
+
       // 1. Загружаем данные питомца
       const petData = await getPet(petId);
       console.log("Данные питомца загружены:", petData);
       setPet(petData);
-      
+
       // 2. Загружаем медицинскую карту
       console.log("Пробуем загрузить медицинскую карту через API...");
       const medicalData = await getPetMedicalCard(petId);
       console.log("Ответ от API medical-cards:", medicalData);
-      
+
       if (medicalData && medicalData.id) {
         console.log("Найдена медкарта:", medicalData);
         setMedicalCard(medicalData);
@@ -124,11 +124,10 @@ export default function MedicalCardPage() {
         console.log("Медкарта не найдена или пустая");
         setMedicalCard(null);
       }
-      
     } catch (error) {
       console.error("Критическая ошибка загрузки данных:", error);
       // Проверяем, если это 404 ошибка - это нормально (медкарты нет)
-      if (error.response?.status === 404 || error.message?.includes('404')) {
+      if (error.response?.status === 404 || error.message?.includes("404")) {
         console.log("Медкарта не найдена (404)");
         setMedicalCard(null);
       } else {
@@ -158,7 +157,6 @@ export default function MedicalCardPage() {
   const handleBackClick = () => {
     navigate(`/pet/${petId}`);
   };
-
 
 
   if (loading) {
@@ -194,7 +192,7 @@ export default function MedicalCardPage() {
         <div className="text-center">
           <p className="text-lg text-red-600 mb-4">Питомец не найден</p>
           <button
-            onClick={() => navigate('/profile')}
+            onClick={() => navigate("/profile")}
             className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
           >
             Вернуться в профиль
@@ -233,16 +231,26 @@ export default function MedicalCardPage() {
                 {pet.name} • {pet.species || "Порода не указана"}
               </p>
             </div>
-            
+
             <div className="mb-8">
-              <svg className="w-24 h-24 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              <svg
+                className="w-24 h-24 text-gray-300 mx-auto mb-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={1.5}
+                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                />
               </svg>
               <p className="text-gray-600 mb-6">
                 Для питомца <span className="font-semibold">{pet.name}</span> пока не создана медицинская карта.
               </p>
             </div>
-            
+
             <button
               onClick={handleCreateMedicalCard}
               className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium"
@@ -289,7 +297,7 @@ export default function MedicalCardPage() {
               Редактировать
             </button>
           </div>
-          
+
           {medicalCard.medical_number && (
             <div className="mt-2">
               <span className="text-gray-500 text-sm">
@@ -303,15 +311,9 @@ export default function MedicalCardPage() {
         <MedicalRecordCard title="Основная информация">
           <div className="space-y-1">
             {medicalCard.weight && medicalCard.weight !== "-256" && (
-              <MedicalRecordItem 
-                title="Вес" 
-                value={medicalCard.weight} 
-                unit="кг" 
-              />
+              <MedicalRecordItem title="Вес" value={medicalCard.weight} unit="кг" />
             )}
-            {medicalCard.blood_type && (
-              <MedicalRecordItem title="Группа крови" value={medicalCard.blood_type} />
-            )}
+            {medicalCard.blood_type && <MedicalRecordItem title="Группа крови" value={medicalCard.blood_type} />}
           </div>
         </MedicalRecordCard>
 
@@ -320,22 +322,16 @@ export default function MedicalCardPage() {
           <MedicalRecordCard title="Даты осмотров">
             <div className="space-y-1">
               {medicalCard.last_checkup_date && (
-                <MedicalRecordItem 
-                  title="Последний осмотр" 
-                  value={formatDate(medicalCard.last_checkup_date)} 
-                />
+                <MedicalRecordItem title="Последний осмотр" value={formatDate(medicalCard.last_checkup_date)} />
               )}
               {medicalCard.next_checkup_date && (
-                <MedicalRecordItem 
-                  title="Следующий осмотр" 
-                  value={formatDate(medicalCard.next_checkup_date)} 
-                />
+                <MedicalRecordItem title="Следующий осмотр" value={formatDate(medicalCard.next_checkup_date)} />
               )}
             </div>
           </MedicalRecordCard>
         )}
 
-        {/* Сертификат (если есть) */}
+        {/* Сертификат (если есть)
         {medicalCard.certificate_info && (
           <MedicalRecordCard title="Сертификат">
             <div className="space-y-1">
@@ -383,7 +379,7 @@ export default function MedicalCardPage() {
               )}
             </div>
           </MedicalRecordCard>
-        )}
+        )} */}
 
         {/* Вакцинация */}
         {vaccinationsArray.length > 0 && (
@@ -431,24 +427,37 @@ export default function MedicalCardPage() {
         )}
 
         {/* Если все поля пустые */}
-        {(!medicalCard.weight || medicalCard.weight === "-256") && 
-         !medicalCard.blood_type && 
-         !medicalCard.last_checkup_date && !medicalCard.next_checkup_date &&
-         !medicalCard.certificate_info &&
-         allergiesArray.length === 0 && diseasesArray.length === 0 && vaccinationsArray.length === 0 && (
-          <div className="bg-white rounded-2xl shadow-lg p-8 text-center">
-            <svg className="w-16 h-16 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-            </svg>
-            <p className="text-gray-500 mb-4">Медицинская карта создана, но пока пуста</p>
-            <button
-              onClick={handleEditMedicalCard}
-              className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors text-sm"
-            >
-              Заполнить информацию
-            </button>
-          </div>
-        )}
+        {(!medicalCard.weight || medicalCard.weight === "-256") &&
+          !medicalCard.blood_type &&
+          !medicalCard.last_checkup_date &&
+          !medicalCard.next_checkup_date &&
+          !medicalCard.certificate_info &&
+          allergiesArray.length === 0 &&
+          diseasesArray.length === 0 &&
+          vaccinationsArray.length === 0 && (
+            <div className="bg-white rounded-2xl shadow-lg p-8 text-center">
+              <svg
+                className="w-16 h-16 text-gray-300 mx-auto mb-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={1.5}
+                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                />
+              </svg>
+              <p className="text-gray-500 mb-4">Медицинская карта создана, но пока пуста</p>
+              <button
+                onClick={handleEditMedicalCard}
+                className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors text-sm"
+              >
+                Заполнить информацию
+              </button>
+            </div>
+          )}
       </div>
     </div>
   );

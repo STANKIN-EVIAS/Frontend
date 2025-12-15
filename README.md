@@ -69,4 +69,9 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 
 ### `npm run build` fails to minify
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify]
+
+## Календарь приёмов
+- Перейдите на маршрут `/calendar`.
+- Выберите клинику в селекте — загрузятся приёмы.
+- Клик по дате откроет список приёмов на этот день, клик по приёму — откроет подробности.(https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
