@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
@@ -28,18 +27,24 @@ export default function Footer() {
 
           {/* Правая часть: ссылки */}
           <div className="text-right space-y-2">
-            <Link 
-              to="/privacy-policy" 
-              className="block text-sm text-gray-600 hover:text-blue-600 transition"
+            <a 
+              href="/assets/Политика_конфиденциальности_ЕВИАС.pdf"
+              download="Политика_конфиденциальности_ЕВИАС.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block text-sm text-gray-600 hover:text-blue-600 transition cursor-pointer"
             >
               Политика конфиденциальности
-            </Link>
-            <Link 
-              to="/personal-data" 
-              className="block text-sm text-gray-600 hover:text-blue-600 transition"
+            </a>
+            <a 
+              href="/assets/Согласие_на_обработку_персональных_данных_ЕВИАС.pdf"
+              download="Согласие_на_обработку_персональных_данных_ЕВИАС.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block text-sm text-gray-600 hover:text-blue-600 transition cursor-pointer"
             >
               Согласие на обработку персональных данных
-            </Link>
+            </a>
           </div>
         </div>
       </div>
