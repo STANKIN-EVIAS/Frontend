@@ -331,56 +331,6 @@ export default function MedicalCardPage() {
           </MedicalRecordCard>
         )}
 
-        {/* Сертификат (если есть)
-        {medicalCard.certificate_info && (
-          <MedicalRecordCard title="Сертификат">
-            <div className="space-y-1">
-              {medicalCard.certificate_info.certificate_number && (
-                <MedicalRecordItem 
-                  title="Номер сертификата" 
-                  value={medicalCard.certificate_info.certificate_number} 
-                />
-              )}
-              {medicalCard.certificate_info.title && (
-                <MedicalRecordItem 
-                  title="Название" 
-                  value={medicalCard.certificate_info.title} 
-                />
-              )}
-              {medicalCard.certificate_info.certificate_type_display && (
-                <MedicalRecordItem 
-                  title="Тип сертификата" 
-                  value={medicalCard.certificate_info.certificate_type_display} 
-                />
-              )}
-              {medicalCard.certificate_info.issue_date && (
-                <MedicalRecordItem 
-                  title="Дата выдачи" 
-                  value={formatDate(medicalCard.certificate_info.issue_date)} 
-                />
-              )}
-              {medicalCard.certificate_info.expiration_date && (
-                <MedicalRecordItem 
-                  title="Срок действия до" 
-                  value={formatDate(medicalCard.certificate_info.expiration_date)} 
-                />
-              )}
-              {medicalCard.certificate_info.issued_by && (
-                <MedicalRecordItem 
-                  title="Кем выдан" 
-                  value={medicalCard.certificate_info.issued_by} 
-                />
-              )}
-              {medicalCard.certificate_info.description && (
-                <MedicalRecordItem 
-                  title="Описание" 
-                  value={medicalCard.certificate_info.description} 
-                />
-              )}
-            </div>
-          </MedicalRecordCard>
-        )} */}
-
         {/* Вакцинация */}
         {vaccinationsArray.length > 0 && (
           <MedicalRecordCard title="Вакцинация">

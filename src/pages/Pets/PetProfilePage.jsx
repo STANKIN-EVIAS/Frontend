@@ -113,7 +113,7 @@ export default function PetProfilePage() {
   };
   
   const handleBackClick = () => {
-    navigate(-1);
+    navigate(`/profile`);
   };
 
   const handleEditPet = () => {
