@@ -4,8 +4,8 @@ import MainRoutes from "components/Main/MainRoutes.jsx";
 import PetsRoutes from "components/Pets/PetsRoutes.jsx";
 import ReviewsRoutes from "components/Reviews/ReviewsRoutes.jsx";
 import ServicesRoutes from "components/Services/ServicesRoutes.jsx";
-import SymptomsRoutes from "components/Symptoms/SymptomsRoutes.jsx";
 import UsersRoutes from "components/Users/UsersRoutes.jsx";
+import CalendarRoutes from "components/Calendar/CalendarRoutes.jsx";
 
 import { Routes } from "react-router-dom";
 
@@ -16,7 +16,7 @@ export default function AppRoutes() {
       {MainRoutes()}
       {AuthRoutes()}
       {ReviewsRoutes()}
-      {SymptomsRoutes()}
+      {CalendarRoutes()}
       {ServicesRoutes()}
       {ClinicsRoutes()}
       {PetsRoutes()}

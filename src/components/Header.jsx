@@ -30,7 +30,7 @@ export default function Header() {
           <NavItem text="Контакты" to="/contacts" />
           <NavItem text="Отзывы" to="/reviews" />
           <NavItem text="Ветклиники" to="/clinics" />
-          <NavItem text="Симптомы" to="/symptoms" />
+          <NavItem text="Календарь" to="/calendar" />
         </div>
       </nav>
     </header>
