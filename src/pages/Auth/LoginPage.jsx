@@ -13,18 +13,21 @@ export default function LoginPage() {
     const navigate = useNavigate();
 
     async function handleSubmit(e) {
-        e.preventDefault();
-        setError("");
-        setLoading(true);
+    e.preventDefault();
+    setError("");
+    setLoading(true);
 
-        try {
-            await login(email, password);
-            const profile = await getProfile(); // запрос профиля
-            setUser(profile); // обновляем контекст
-            navigate("/profile"); // переходим без перезагрузки
-        } catch (err) {
-            setError(err.message || "Ошибка авторизации");
-        }
+    try {
+        await login(email, password);
+        const profile = await getProfile();
+        setUser(profile);
+        navigate("/profile");
+    } catch (err) {
+        setError(err?.message || "Неверный email или пароль");
+    } finally {
+        setLoading(false);
+    }
+
     }
 
     return (
