@@ -11,7 +11,7 @@ const ClinicsPage = () => {
   if (error) return <div className="p-6 text-center text-red-500">{error}</div>;
 
   return (
-    <div className="p-6 bg-gray-50 min-h-screen">
+    <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-6">Ветеринарные клиники</h1>
 
       <div className="flex flex-col md:flex-row gap-6 relative">

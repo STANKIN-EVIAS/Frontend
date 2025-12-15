@@ -27,7 +27,7 @@ const ClinicsMap = ({ clinics, selectedCoords }) => {
 
         window.addEventListener("resize", handleResize);
         document.addEventListener("fullscreenchange", handleResize);
-        document.addEventListener("webkitfullscreenchange", handleResize); // Safari
+        document.addEventListener("webkitfullscreenchange", handleResize);
         document.addEventListener("mozfullscreenchange", handleResize);
 
         return () => {
@@ -39,46 +39,48 @@ const ClinicsMap = ({ clinics, selectedCoords }) => {
     }, []);
 
     return (
-        <YMaps query={{ lang: "ru_RU" }}>
-            <Map
-                instanceRef={(ref) => (mapRef.current = ref)}
-                defaultState={{
-                    center,
-                    zoom: 12,
-                    controls: ["zoomControl", "fullscreenControl"],
-                }}
-                modules={["control.ZoomControl", "control.FullscreenControl"]}
-                style={{
-                    width: "100%",
-                    height: "100%",
-                    borderRadius: "1rem",
-                }}
-            >
-                {clinics.map(
-                    (clinic) =>
-                        clinic.latitude &&
-                        clinic.longitude && (
-                            <Placemark
-                                key={clinic.id}
-                                geometry={[clinic.latitude, clinic.longitude]}
-                                options={{
-                                    iconLayout: "default#image",
-                                    iconImageHref: "https://cdn-icons-png.flaticon.com/512/616/616408.png",
-                                    iconImageSize: [30, 30],
-                                    iconImageOffset: [-15, -30],
-                                    cursor: "pointer",
-                                }}
-                                properties={{
-                                    balloonContentHeader: `<strong>${clinic.name}</strong>`,
-                                    balloonContentBody: clinic.address,
-                                    hintContent: clinic.name,
-                                }}
-                                onClick={() => navigate(`/clinics/${clinic.id}`)}
-                            />
-                        )
-                )}
-            </Map>
-        </YMaps>
+        <div className="w-full max-w-4xl mx-auto"> {/* Ограничиваем максимальную ширину */}
+            <YMaps query={{ lang: "ru_RU" }}>
+                <Map
+                    instanceRef={(ref) => (mapRef.current = ref)}
+                    defaultState={{
+                        center,
+                        zoom: 12,
+                        controls: ["zoomControl", "fullscreenControl"],
+                    }}
+                    modules={["control.ZoomControl", "control.FullscreenControl"]}
+                    style={{
+                        width: "100%",
+                        height: "500px", // Фиксированная высота
+                        borderRadius: "1rem",
+                    }}
+                >
+                    {clinics.map(
+                        (clinic) =>
+                            clinic.latitude &&
+                            clinic.longitude && (
+                                <Placemark
+                                    key={clinic.id}
+                                    geometry={[clinic.latitude, clinic.longitude]}
+                                    options={{
+                                        iconLayout: "default#image",
+                                        iconImageHref: "https://cdn-icons-png.flaticon.com/512/616/616408.png",
+                                        iconImageSize: [30, 30],
+                                        iconImageOffset: [-15, -30],
+                                        cursor: "pointer",
+                                    }}
+                                    properties={{
+                                        balloonContentHeader: `<strong>${clinic.name}</strong>`,
+                                        balloonContentBody: clinic.address,
+                                        hintContent: clinic.name,
+                                    }}
+                                    onClick={() => navigate(`/clinics/${clinic.id}`)}
+                                />
+                            )
+                    )}
+                </Map>
+            </YMaps>
+        </div>
     );
 };
 
