@@ -159,34 +159,7 @@ export default function MedicalCardPage() {
     navigate(`/pet/${petId}`);
   };
 
-  // Добавим кнопку для отладки
-  const handleDebugClick = () => {
-    console.log("=== DEBUG INFO ===");
-    console.log("petId:", petId);
-    console.log("pet:", pet);
-    console.log("medicalCard:", medicalCard);
-    console.log("loading:", loading);
-    console.log("error:", error);
-    
-    if (medicalCard) {
-      const cardInfo = `
-Медкарта найдена!
-ID: ${medicalCard.id}
-Номер: ${medicalCard.medical_number || 'нет'}
-Вес: ${medicalCard.weight || 'нет'}
-Группа крови: ${medicalCard.blood_type || 'нет'}
-Аллергии: ${medicalCard.allergies ? 'есть' : 'нет'}
-Хронические заболевания: ${medicalCard.chronic_diseases ? 'есть' : 'нет'}
-Прививки: ${medicalCard.vaccinations ? 'есть' : 'нет'}
-Последний осмотр: ${medicalCard.last_checkup_date || 'нет'}
-Следующий осмотр: ${medicalCard.next_checkup_date || 'нет'}
-Сертификат: ${medicalCard.certificate_info ? 'есть' : 'нет'}
-`;
-      alert(cardInfo);
-    } else {
-      alert("Медкарта не найдена в состоянии");
-    }
-  };
+
 
   if (loading) {
     return (
@@ -268,12 +241,6 @@ ID: ${medicalCard.id}
               <p className="text-gray-600 mb-6">
                 Для питомца <span className="font-semibold">{pet.name}</span> пока не создана медицинская карта.
               </p>
-              <button
-                onClick={handleDebugClick}
-                className="mt-4 text-sm text-gray-500 underline"
-              >
-                Отладка
-              </button>
             </div>
             
             <button
@@ -301,12 +268,6 @@ ID: ${medicalCard.id}
           >
             <span className="mr-2">←</span>
             Назад к профилю питомца
-          </button>
-          <button
-            onClick={handleDebugClick}
-            className="mt-2 text-sm text-gray-500 underline"
-          >
-            Отладка
           </button>
         </div>
 
