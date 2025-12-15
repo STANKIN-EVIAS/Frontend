@@ -15,6 +15,8 @@ export default function RegistrationPage() {
     const [loading, setLoading] = useState(false);
     const { setUser } = useAuth();
     const navigate = useNavigate();
+    const [agreement, setAgreement] = useState(false);
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -23,6 +25,11 @@ export default function RegistrationPage() {
             setErrors({ password2: ["Пароли не совпадают"] });
             return;
         }
+
+        if (!agreement) {
+    setErrors({ agreement: ["Необходимо дать согласие на обработку персональных данных"] });
+    return;
+}
 
         setLoading(true);
         try {
@@ -115,9 +122,38 @@ export default function RegistrationPage() {
                 />
                 {errors.password2 && <div className="text-red-500 text-sm mb-1">{errors.password2.join(", ")}</div>}
 
+                {/* Agreement */}
+                <div className="flex items-start gap-2 mt-4">
+                    <input
+                        type="checkbox"
+                        id="agreement"
+                        checked={agreement}
+                        onChange={(e) => setAgreement(e.target.checked)}
+                        className="mt-1"
+                    />
+                    <label htmlFor="agreement" className="text-sm text-gray-700">
+                        Я даю{" "}
+                        <a
+                            href="/assets/Политика_конфиденциальности_ЕВИАС.pdf"
+                            download="Политика_конфиденциальности_ЕВИАС.pdf"
+                            className="text-blue-600 hover:underline"
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            согласие на обработку персональных данных
+                        </a>
+                    </label>
+                </div>
+
+                {errors.agreement && (
+                    <div className="text-red-500 text-sm mt-1">
+                        {errors.agreement.join(", ")}
+                    </div>
+                )}
+
+
                 <button
                     type="submit"
-                    disabled={loading}
+                    disabled={loading || !agreement}
                     className="bg-blue-600 text-white w-full py-2 rounded-lg mt-3 hover:bg-blue-700 transition disabled:opacity-50"
                 >
                     {loading ? "Регистрация..." : "Зарегистрироваться"}
